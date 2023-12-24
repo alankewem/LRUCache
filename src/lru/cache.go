@@ -17,3 +17,12 @@ func New(capacity uint) *LRUCache {
 		order:    list.New(),
 	}
 }
+
+func (l *LRUCache) Get(key string) (value interface{}, exists bool) {
+	if item, exists := l.items[key]; exists {
+		l.order.MoveToFront(item)
+		return item.Value, exists
+	}
+
+	return nil, false
+}
